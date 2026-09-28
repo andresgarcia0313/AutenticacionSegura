@@ -8,10 +8,10 @@ if ! command -v sshpass &> /dev/null; then
 fi
 
 # Variables globales (define estos valores al inicio del script)
-SERVIDOR="192.168.0.1"      # IP del servidor
-USUARIO=""              # Usuario del servidor
-CONTRASENA=""     # Contraseña actual del servidor
-CARPETA_BACKUP="./ssh_config_backup"  # Carpeta donde se guardarán las claves SSH
+SERVIDOR="192.168.1.59"      # IP del servidor
+USUARIO="andres"              # Usuario del servidor
+CONTRASENA="${CONTRASENA:?exporta CONTRASENA con la contraseña actual del servidor}"
+CARPETA_BACKUP="$PWD/ssh_config_backup"  # Carpeta donde se guardarán las claves SSH
 
 # Ruta del archivo de clave SSH (en la carpeta de respaldo)
 CLAVE_PRIVADA="$CARPETA_BACKUP/id_rsa"
@@ -40,7 +40,7 @@ sshpass -p "$CONTRASENA" ssh-copy-id -i "$CLAVE_PUBLICA" "$USUARIO@$SERVIDOR"
 if [ $? -eq 0 ]; then
     echo "La clave pública fue copiada correctamente al servidor $SERVIDOR."
 else
-    echo "Hubo un error al copiar la clave al servidor. Verifica las credenciales o la conectividad."
+    echo "Hubo un error al copiar la clave al servidor. Verifica las credenciales o la conectividad iniciando con ssh user@ip"
     exit 2
 fi
 
